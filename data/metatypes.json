@@ -1,0 +1,273 @@
+{
+"human":{
+  "Body":{
+    "starting": 1,
+    "max": 6
+  },
+  "Agility":{
+    "starting": 1,
+    "max": 6
+  },
+  "Reaction":{
+    "starting": 1,
+    "max": 6
+  },
+  "Strength":{
+    "starting": 1,
+    "max": 6
+  },
+  "Willpower":{
+    "starting": 1,
+    "max": 6
+  },
+  "Logic":{
+    "starting": 1,
+    "max": 6
+  },
+  "Charisma":{
+    "starting": 1,
+    "max": 6
+  },
+  "Intelligence":{
+    "starting": 1,
+    "max": 6
+  },
+  "Edge":{
+    "starting": 2,
+    "max": 7
+  },
+  "Essence":{
+    "starting": 6,
+    "max": 6
+  },
+  "Magic":{
+    "starting":"-",
+    "max":0
+  },
+  "Resonance":{
+  "starting":"-",
+  "max":0
+},
+  "Initiative":{
+    "starting":0
+  },
+  "Special":"None"
+},
+
+"elf":{
+  "Body":{
+    "starting": 1,
+    "max": 6
+  },
+  "Agility":{
+    "starting": 2,
+    "max": 7
+  },
+  "Reaction":{
+    "starting": 1,
+    "max": 6
+  },
+  "Strength":{
+    "starting": 1,
+    "max": 6
+  },
+  "Willpower":{
+    "starting": 1,
+    "max": 6
+  },
+  "Logic":{
+    "starting": 1,
+    "max": 6
+  },
+  "Intelligence":{
+    "starting": 1,
+    "max": 6
+  },
+  "Charisma":{
+    "starting": 3,
+    "max": 8
+  },
+  "Edge":{
+    "starting": 2,
+    "max": 7
+  },
+  "Essence":{
+    "starting": 6,
+    "max": 6
+  },
+  "Magic":{
+    "starting":"-",
+    "max":0
+  },
+  "Resonance":{
+    "starting":"-",
+    "max":0
+},
+"Initiative":{
+  "starting":0
+},
+  "Special":"Low Light Vision"
+},
+"dwarf":{
+  "Body":{
+    "starting": 3,
+    "max": 8
+  },
+  "Agility":{
+    "starting": 1,
+    "max": 6
+  },
+  "Reaction":{
+    "starting": 1,
+    "max": 5
+  },
+  "Strength":{
+    "starting": 3,
+    "max": 8
+  },
+  "Willpower":{
+    "starting": 2,
+    "max": 7
+  },
+  "Logic":{
+    "starting": 1,
+    "max": 6
+  },
+  "Intelligence":{
+    "starting": 1,
+    "max": 6
+  },
+  "Charisma":{
+    "starting": 1,
+    "max": 6
+  },
+  "Edge":{
+    "starting": 2,
+    "max": 7
+  },
+  "Essence":{
+    "starting": 6,
+    "max": 6
+  },
+  "Magic":{
+    "starting":"-",
+    "max":0
+  },
+  "Resonance":{
+    "starting":"-",
+  "max":0
+},
+"Initiative":{
+  "starting":0
+},
+  "Special":"Thermographgic Vision, +2 dice for pathogen and toxin resistence, 20% increased lifestyle cost"
+},
+"ork":{
+  "Body":{
+    "starting": 4,
+    "max": 9
+  },
+  "Agility":{
+    "starting": 1,
+    "max": 6
+  },
+  "Reaction":{
+    "starting": 1,
+    "max": 6
+  },
+  "Strength":{
+    "starting": 3,
+    "max": 8
+  },
+  "Willpower":{
+    "starting": 1,
+    "max": 6
+  },
+  "Logic":{
+    "starting": 1,
+    "max": 5
+  },
+  "Intelligence":{
+    "starting": 1,
+    "max": 6
+  },
+  "Charisma":{
+    "starting": 1,
+    "max": 5
+  },
+  "Edge":{
+    "starting": 2,
+    "max": 7
+  },
+  "Essence":{
+    "starting": 6,
+    "max": 6
+  },
+  "Magic":{
+    "starting":"-",
+    "max":0
+  },
+  "Resonance":{
+    "starting":"-",
+  "max":0
+},
+"Initiative":{
+  "starting":0
+},
+  "Special":"Low light vision"
+},
+"troll":{
+  "Body":{
+    "starting": 5,
+    "max": 10
+  },
+  "Agility":{
+    "starting": 1,
+    "max": 5
+  },
+  "Reaction":{
+    "starting": 1,
+    "max": 6
+  },
+  "Strength":{
+    "starting": 5,
+    "max": 10
+  },
+  "Willpower":{
+    "starting": 1,
+    "max": 6
+  },
+  "Logic":{
+    "starting": 1,
+    "max": 5
+  },
+  "Intelligence":{
+    "starting": 1,
+    "max": 5
+  },
+  "Charisma":{
+    "starting": 1,
+    "max": 4
+  },
+  "Edge":{
+    "starting": 2,
+    "max": 7
+  },
+  "Essence":{
+    "starting": 6,
+    "max": 6
+  },
+  "Magic":{
+    "starting":"-",
+    "max":0
+  },
+  "Resonance":{
+    "starting":"-",
+    "max":0
+},
+"Initiative":{
+  "starting":0
+},
+  "Special":"Thermographgic vision, +1 Reach, +1 Dermal armor, +100% Lifestyle costs"
+}
+}

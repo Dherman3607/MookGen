@@ -1,0 +1,83 @@
+{
+"metatype":{
+  "0":{
+    "human":{
+    "name": "human",
+    "Specials": 1
+  }
+},
+  "1":{
+    "human":{
+      "name": "human",
+      "Specials": 3
+    },
+    "elf":{
+      "name":"elf",
+      "specials": 0
+      }
+    },
+    "2":{
+      "human":{
+        "name":"human",
+        "specials":3
+      },
+      "elf":{
+        "name": "elf",
+        "spoecials":3
+      },
+      "dwarf":{
+        "name":"dwarf",
+        "specials":1
+      },
+      "ork":{
+        "name":"ork",
+        "specials":0
+      }
+    },
+    "3":{
+      "human":{
+        "name":"human",
+        "specials":7
+      },
+      "elf":{
+        "name": "elf",
+        "spoecials":6
+      },
+      "dwarf":{
+        "name":"dwarf",
+        "specials":4
+      },
+      "ork":{
+        "name":"ork",
+        "specials":4
+      },
+      "troll":{
+        "name":"troll",
+        "specials":0
+      }
+    },
+    "4":{
+      "human":{
+        "name":"human",
+        "specials":9
+      },
+      "elf":{
+        "name": "elf",
+        "spoecials":8
+      },
+      "dwarf":{
+        "name":"dwarf",
+        "specials":7
+      },
+      "ork":{
+        "name":"ork",
+        "specials":7
+      },
+      "troll":{
+        "name":"troll",
+        "specials":5
+    }
+
+  }
+}
+}

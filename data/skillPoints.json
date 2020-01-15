@@ -1,0 +1,22 @@
+{
+  "0":{
+    "points":10,
+    "groups":0
+  },
+  "1":{
+    "points":22,
+    "groups":0
+  },
+  "2":{
+    "points":28,
+    "groups":2
+  },
+  "3":{
+    "points":36,
+    "groups":5
+  },
+  "4":{
+    "points":46,
+    "groups":10
+  }
+}
