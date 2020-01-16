@@ -6,6 +6,7 @@ import json
 
 
 #vars:
+Stats = {}
 Stats = {
 
     'Body':0,
@@ -31,16 +32,18 @@ def ReadJson(Inputfile):
     with open(Inputfile,'r') as f:
         return json.load(f)
 def  addAttributes(inputStats,SpendablePoints):
-    pass
+    print(inputStats,SpendablePoints)
 
 def MakeEasyMook():
     sumToTen = 10
     Priorities = ReadJson('data\\Priorities.json')
     metatypeStats = ReadJson('data\\metatypes.json')
     boughtValues = ReadJson('data\\boughtValues.json')
-    SkillPointAllocations = ReadJson('data\\SkillPoints.json')
+    #SkillPointAllocations = ReadJson('data\\SkillPoints.json')
     SpecialStaters = ReadJson('data\\SpecialStats.json')
-    AttributePool = [ReadJson('data\\pointCosts.json')]
+    PointCost = [ReadJson('data\\pointCosts.json')]
+    Stats = {}
+
     for priority in Priorities:
         if sumToTen > 0:
             value =  (random.randrange(0,4))
@@ -58,13 +61,35 @@ def MakeEasyMook():
     #metatype = random.choice(list(possibleMeta.keys()))
 
     metatype = random.choice(list(boughtValues['metatype'][str(Priorities['metatype'])].keys()))
-    print(metatype)
-    for stat in Stats:
-        print(stat)
-        Stats[stat] = metatypeStats[metatype][stat]['starting']
 
-    attributePoints = int(AttributePool[0]['attributes'][str(Priorities['attributes'])])
-    stats = addAttributes(stats,attributePoints)
+
+    for stat in metatypeStats[metatype]:
+        if stat == 'Special':
+            Stats[stat] = metatypeStats[metatype][stat]
+        else:
+
+            Stats[stat] = metatypeStats[metatype][stat]['starting']
+
+    attributePoints = int(PointCost[0]['attributes'][str(Priorities['attributes'])])
+
+    #is this guy magical, or a technomancer?
+    if(Priorities['Magic'] >0 ):
+        #print (SpecialStaters[str(Priorities['Magic'])])
+        specialty = random.choice(list(SpecialStaters[str(Priorities['Magic'])]))
+        #specialityStats = SpecialStaters[str(Priorities['Magic'])[specialty]
+
+        specialtyStats = SpecialStaters[str(Priorities['Magic'])][specialty]
+
+        print(type(specialty))
+        print(specialtyStats)
+        if(specialtyStats['Magic']):
+            print('we have a magic user!')
+            Stats['Magic'] = specialtyStats['Magic']
+        elif(specialtyStats['Resonance']):
+            print('We have a technomancer!')
+
+    print(Stats)
+    Stats = addAttributes(Stats,attributePoints)
 
 
 

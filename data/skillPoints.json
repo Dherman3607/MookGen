@@ -1,4 +1,5 @@
 {
+  "skillpoints":{
   "0":{
     "points":10,
     "groups":0
@@ -19,4 +20,5 @@
     "points":46,
     "groups":10
   }
+}
 }
