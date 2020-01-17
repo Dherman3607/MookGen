@@ -49,7 +49,8 @@
   "max":0
 },
   "Initiative":{
-    "starting":0
+    "starting":0,
+    "max":0
   },
   "Special":"None"
 },
@@ -104,7 +105,8 @@
     "max":0
 },
 "Initiative":{
-  "starting":0
+  "starting":0,
+  "max":0
 },
   "Special":"Low Light Vision"
 },
@@ -158,7 +160,8 @@
   "max":0
 },
 "Initiative":{
-  "starting":0
+  "starting":0,
+  "max":0
 },
   "Special":"Thermographgic Vision, +2 dice for pathogen and toxin resistence, 20% increased lifestyle cost"
 },
@@ -212,7 +215,8 @@
   "max":0
 },
 "Initiative":{
-  "starting":0
+  "starting":0,
+  "max":0
 },
   "Special":"Low light vision"
 },
@@ -266,7 +270,8 @@
     "max":0
 },
 "Initiative":{
-  "starting":0
+  "starting":0,
+  "max":0
 },
   "Special":"Thermographgic vision, +1 Reach, +1 Dermal armor, +100% Lifestyle costs"
 }

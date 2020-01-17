@@ -13,69 +13,69 @@
     },
     "elf":{
       "name":"elf",
-      "specials": 0
+      "Specials": 0
       }
     },
     "2":{
       "human":{
         "name":"human",
-        "specials":3
+        "Specials":3
       },
       "elf":{
         "name": "elf",
-        "spoecials":3
+        "Specials":3
       },
       "dwarf":{
         "name":"dwarf",
-        "specials":1
+        "Specials":1
       },
       "ork":{
         "name":"ork",
-        "specials":0
+        "Specials":0
       }
     },
     "3":{
       "human":{
         "name":"human",
-        "specials":7
+        "Specials":7
       },
       "elf":{
         "name": "elf",
-        "spoecials":6
+        "Specials":6
       },
       "dwarf":{
         "name":"dwarf",
-        "specials":4
+        "Specials":4
       },
       "ork":{
         "name":"ork",
-        "specials":4
+        "Specials":4
       },
       "troll":{
         "name":"troll",
-        "specials":0
+        "Specials":0
       }
     },
     "4":{
       "human":{
         "name":"human",
-        "specials":9
+        "Specials":9
       },
       "elf":{
         "name": "elf",
-        "spoecials":8
+        "Specials":8
       },
       "dwarf":{
         "name":"dwarf",
-        "specials":7
+        "Specials":7
       },
       "ork":{
         "name":"ork",
-        "specials":7
+        "Specials":7
       },
       "troll":{
         "name":"troll",
-        "specials":5
+        "Specials":5
     }
 
   }
