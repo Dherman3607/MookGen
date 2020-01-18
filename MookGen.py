@@ -58,11 +58,16 @@ def  addAttributes(inputStats,maxStats,SpendablePoints,SpendableSpecialPoints):
         if(advancedStats):
             increaseStat = random.choice(advancedStats)
             print(increaseStat)
-            if(inputStats[increaseStat] < maxStats[increaseStat]):
-                inputStats[increaseStat] += 1
-                SpendableSpecialPoints -= 1
-            else:
+            print(inputStats[increaseStat])
+            if(inputStats[increaseStat] == "-"):
+                #this attribute can't be bought on this chracter, remove it
                 advancedStats.remove(increaseStat)
+            else:
+                if(inputStats[increaseStat] < maxStats[increaseStat]):
+                    inputStats[increaseStat] += 1
+                    SpendableSpecialPoints -= 1
+                else:
+                    advancedStats.remove(increaseStat)
         else:
             break
     return inputStats
@@ -77,7 +82,7 @@ def MakeEasyMook():
     boughtValues = ReadJson('data\\boughtValues.json')
     #SkillPointAllocations = ReadJson('data\\SkillPoints.json')
     SpecialStaters = ReadJson('data\\SpecialStats.json')
-    PointCost = [ReadJson('data\\pointCosts.json')]
+    PointCost = ReadJson('data\\pointCosts.json')
     Stats = {}
 
     for priority in Priorities:
@@ -107,8 +112,8 @@ def MakeEasyMook():
             Stats[stat] = metatypeStats[metatype][stat]['starting']
             maxStats[stat] = metatypeStats[metatype][stat]['max']
 
-    attributePoints = int(PointCost[0]['attributes'][str(Priorities['attributes'])])
-
+    #attributePoints = int(PointCost[0]['attributes'][str(Priorities['attributes'])])
+    attributePoints = PointCost['attributes'][str(Priorities['attributes'])]
     #is this guy magical, or a technomancer?
     if(Priorities['Magic'] >0 ):
         #print (SpecialStaters[str(Priorities['Magic'])])
