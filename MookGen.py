@@ -15,7 +15,7 @@ Stats = {
     'Strength':0,
     'Willpower':0,
     'Logic':0,
-    'Intelligence':0,
+    'Intuition':0,
     'Charisma':0,
     'Edge':0,
     'Magic' : '-',
@@ -26,8 +26,6 @@ Stats = {
 maxStats = {}
 
 
-    #'Initiative': Stats['Physical']['Reaction'] + Stats['Mental']['Intelligence']
-#callback defs
 def ReadJson(Inputfile):
 
     with open(Inputfile,'r') as f:
@@ -36,7 +34,7 @@ def ReadJson(Inputfile):
 def  addAttributes(inputStats,maxStats,SpendablePoints,SpendableSpecialPoints):
     print('inside')
     print(inputStats,SpendablePoints,SpendableSpecialPoints)
-    NormalStats = ['Body','Agility','Reaction','Strength','Willpower','Logic','Charisma','Intelligence']
+    NormalStats = ['Body','Agility','Reaction','Strength','Willpower','Logic','Charisma','Intuition']
     advancedStats = ['Magic','Resonance','Edge']
     for stat in advancedStats:
         print(stat)
@@ -57,8 +55,6 @@ def  addAttributes(inputStats,maxStats,SpendablePoints,SpendableSpecialPoints):
     while SpendableSpecialPoints > 0:
         if(advancedStats):
             increaseStat = random.choice(advancedStats)
-            print(increaseStat)
-            print(inputStats[increaseStat])
             if(inputStats[increaseStat] == "-"):
                 #this attribute can't be bought on this chracter, remove it
                 advancedStats.remove(increaseStat)
@@ -70,10 +66,47 @@ def  addAttributes(inputStats,maxStats,SpendablePoints,SpendableSpecialPoints):
                     advancedStats.remove(increaseStat)
         else:
             break
+    inputStats['Initiative'] = inputStats['Reaction'] + inputStats['Intuition']
     return inputStats
 
+def addSkills(skillPointsDict,Skills):
+    removableSkillgroups = []
+    #set up the list of skills that can be increased. When we process skill groups, we'll remove individual skills from this list.
+    SkillList = []
+    skillGroups = []
+    for skillGroup in Skills['Skills']:
+        skillGroups.append(skillGroup)
+        for skill in Skills['Skills'][skillGroup]:
+            SkillList.append(skill)
 
-    print(inputStats)
+
+    while skillPointsDict['groups'] > 0:
+        increasedSkills = random.choice(skillGroups)
+        print(increasedSkills)
+        if(increasedSkills not in removableSkillgroups):
+            removableSkillgroups.append(increasedSkills)
+        for skill in Skills['Skills'][increasedSkills]:
+            Skills['Skills'][increasedSkills][skill] +=1
+        skillPointsDict['groups'] -=1
+
+
+    if(removableSkillgroups):
+        for group in removableSkillgroups:
+            skillGroups.remove(group)
+
+    while skillPointsDict['points'] > 0:
+        print("choosing skills")
+        randomGroup = random.choice(skillGroups)
+        #print(Skills['Skills'][randomGroup])
+        randomSkill = random.choice(list(Skills['Skills'][randomGroup]))
+        if (Skills['Skills'][randomGroup][randomSkill]< 5):
+            Skills['Skills'][randomGroup][randomSkill] +=1
+            skillPointsDict['points'] -=1
+        else:
+            pass
+
+    print(Skills)
+    return Skills
 
 def MakeEasyMook():
     sumToTen = 10
@@ -83,6 +116,7 @@ def MakeEasyMook():
     #SkillPointAllocations = ReadJson('data\\SkillPoints.json')
     SpecialStaters = ReadJson('data\\SpecialStats.json')
     PointCost = ReadJson('data\\pointCosts.json')
+    Skills = ReadJson('data\\skills.json')
     Stats = {}
 
     for priority in Priorities:
@@ -112,38 +146,43 @@ def MakeEasyMook():
             Stats[stat] = metatypeStats[metatype][stat]['starting']
             maxStats[stat] = metatypeStats[metatype][stat]['max']
 
-    #attributePoints = int(PointCost[0]['attributes'][str(Priorities['attributes'])])
+
     attributePoints = PointCost['attributes'][str(Priorities['attributes'])]
     #is this guy magical, or a technomancer?
     if(Priorities['Magic'] >0 ):
-        #print (SpecialStaters[str(Priorities['Magic'])])
-        specialty = random.choice(list(SpecialStaters[str(Priorities['Magic'])]))
-        #specialityStats = SpecialStaters[str(Priorities['Magic'])[specialty]
 
+        specialty = random.choice(list(SpecialStaters[str(Priorities['Magic'])]))
         specialtyStats = SpecialStaters[str(Priorities['Magic'])][specialty]
 
-        # print(type(specialty))
-        # print(metatype)
-        # print(specialtyStats)
         if('Magic' in specialtyStats):
-            #print('we have a magic user!')
             Stats['Magic'] = specialtyStats['Magic']
-
         else:
             Stats['Resonance'] = specialtyStats['Resonance']
-            #print('We have a technomancer!')
         if(Stats["Special"] =='None'):
             Stats["Special"] = specialty
         else:
-             Stats["Special"] += Stats["Special"] + " " + specialty
+             Stats["Special"] +=  " " + specialty
 
-#    print(Stats)
+
+    #set up and calculate attributes
     SpendableSpecialPoints = boughtValues['metatype'][str(Priorities['metatype'])][metatype]['Specials']
     Stats = addAttributes(Stats,maxStats,attributePoints,SpendableSpecialPoints)
+    #setup and calculate skill points
+    spendableSkillpoints =PointCost['skillpoints'][str(Priorities['Skills'])]
+    if(Stats['Magic'] == "-"):
+        Skills['Skills'].pop('Sorcery')
+        Skills['Skills'].pop('Conjuring')
+        Skills['Skills'].pop('Enchanting')
+    if(Stats['Resonance'] == '-'):
+        Skills['Skills'].pop('Tasking')
+
+    skills = addSkills(spendableSkillpoints,Skills)
+
 
     print('at the end of assigning attribute points, the stat array is:')
     print(Stats)
 
+    print()
 
 
 #main loop
