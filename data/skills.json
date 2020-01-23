@@ -21,11 +21,6 @@
         "Clubs":0,
         "Unarmed Combat":0
       },
-      "Conjuring":{
-        "Banishing":0,
-        "Binding":0,
-        "Summoning":0
-      },
       "Cracking":{
         "Cybercombat":0,
         "Electronic":0,
@@ -35,11 +30,6 @@
         "Computer":0,
         "Hardware":0,
         "Software":0
-      },
-      "Enchanting":{
-        "Alchemy":0,
-        "Artificing":0,
-        "Disenchanting":0
       },
       "Engineering":{
         "Aeronatuics Mechanic":0,
@@ -62,22 +52,36 @@
         "Survival":0,
         "Tracking":0
       },
-      "Sorcery":{
-        "Counterspelling":0,
-        "Ritual Spellcasting":0,
-        "Spellcasting":0
-      },
       "Stealth":{
         "Disguise":0,
         "Palming":0,
         "Sneaking":0
-      },
-      "Tasking":{
-        "Compiling":0,
-        "Decompiling":0,
-        "Tracking":0
-        }
-
-
+      }
+    },
+  "Specials":{
+    "Magic":{
+    "Sorcery":{
+      "Counterspelling":0,
+      "Ritual Spellcasting":0,
+      "Spellcasting":0
+    },
+    "Enchanting":{
+      "Alchemy":0,
+      "Artificing":0,
+      "Disenchanting":0
+    },
+    "Conjuring":{
+      "Banishing":0,
+      "Binding":0,
+      "Summoning":0
     }
-  }
+  },
+  "Technomancer":{
+    "Tasking":{
+      "Compiling":0,
+      "Decompiling":0,
+      "Tracking":0
+    }
+    }
+}
+}

@@ -32,24 +32,18 @@ def ReadJson(Inputfile):
         return json.load(f)
 
 def  addAttributes(inputStats,maxStats,SpendablePoints,SpendableSpecialPoints):
-    print('inside')
-    print(inputStats,SpendablePoints,SpendableSpecialPoints)
     NormalStats = ['Body','Agility','Reaction','Strength','Willpower','Logic','Charisma','Intuition']
     advancedStats = ['Magic','Resonance','Edge']
     for stat in advancedStats:
-        print(stat)
         if(inputStats[stat] == "-"):
-            print("character doesn't have this stat, remove")
             advancedStats.remove(stat)
 
     while SpendablePoints > 0:
         increaseStat = random.choice(NormalStats)
         if(inputStats[increaseStat]< maxStats[increaseStat]):
-            print('increasing stat?')
             inputStats[increaseStat]+=1
             SpendablePoints -= 1
         else:
-            print("this stat is at it's max?")
             NormalStats.remove(increaseStat)
 
     while SpendableSpecialPoints > 0:
@@ -69,24 +63,56 @@ def  addAttributes(inputStats,maxStats,SpendablePoints,SpendableSpecialPoints):
     inputStats['Initiative'] = inputStats['Reaction'] + inputStats['Intuition']
     return inputStats
 
+
+
+def determineSpecials(Skills,Stats,SkillsInputFile):
+    if('Aspected' in Stats['Special']):
+        print('aspected magician')
+        #an aspected mage can only use one of the three mage skills, to be determined randomly.
+        ChosenSkillSet = random.choice(list(SkillsInputFile['Specials']['Magic']))
+        print(ChosenSkillSet)
+        print(SkillsInputFile['Specials']['Magic'][ChosenSkillSet])
+        Skills += ChosenSkillSet
+        print(Skills)
+        #Skills.update(ChosenSkillSet)
+
+    elif ('Technomancer' in Stats['Special']):
+        print('Technomancer')
+
+    elif('Mystic Adept') in Stats['Special']:
+        print('Mystic Adept')
+
+    elif('Magician' in Stats['Special']):
+        print('Magician')
+    elif('Adept' in Stats['Special']):
+        print('Adept')
+
+    return Skills
+
+
+
 def addSkills(skillPointsDict,Skills):
+
     removableSkillgroups = []
     #set up the list of skills that can be increased. When we process skill groups, we'll remove individual skills from this list.
     SkillList = []
     skillGroups = []
-    for skillGroup in Skills['Skills']:
+    print('before calculating')
+    print(Skills)
+    #aspected magicans, adepts, and technomancers all have different rules for Skills
+    #before assigning groups and skill points, those need to be configured.
+    for skillGroup in Skills:
         skillGroups.append(skillGroup)
-        for skill in Skills['Skills'][skillGroup]:
+        for skill in Skills[skillGroup]:
             SkillList.append(skill)
 
 
     while skillPointsDict['groups'] > 0:
         increasedSkills = random.choice(skillGroups)
-        print(increasedSkills)
         if(increasedSkills not in removableSkillgroups):
             removableSkillgroups.append(increasedSkills)
-        for skill in Skills['Skills'][increasedSkills]:
-            Skills['Skills'][increasedSkills][skill] +=1
+        for skill in Skills[increasedSkills]:
+            Skills[increasedSkills][skill] +=1
         skillPointsDict['groups'] -=1
 
 
@@ -95,17 +121,14 @@ def addSkills(skillPointsDict,Skills):
             skillGroups.remove(group)
 
     while skillPointsDict['points'] > 0:
-        print("choosing skills")
         randomGroup = random.choice(skillGroups)
         #print(Skills['Skills'][randomGroup])
-        randomSkill = random.choice(list(Skills['Skills'][randomGroup]))
-        if (Skills['Skills'][randomGroup][randomSkill]< 5):
-            Skills['Skills'][randomGroup][randomSkill] +=1
+        randomSkill = random.choice(list(Skills[randomGroup]))
+        if (Skills[randomGroup][randomSkill]< 5):
+            Skills[randomGroup][randomSkill] +=1
             skillPointsDict['points'] -=1
         else:
             pass
-
-    print(Skills)
     return Skills
 
 def MakeEasyMook():
@@ -116,7 +139,8 @@ def MakeEasyMook():
     #SkillPointAllocations = ReadJson('data\\SkillPoints.json')
     SpecialStaters = ReadJson('data\\SpecialStats.json')
     PointCost = ReadJson('data\\pointCosts.json')
-    Skills = ReadJson('data\\skills.json')
+    SkillsInputFile = ReadJson('data\\skills.json')
+    Skills = SkillsInputFile['Skills']
     Stats = {}
 
     for priority in Priorities:
@@ -126,7 +150,7 @@ def MakeEasyMook():
             Priorities[priority] = value
 
 
-    print("the priorities are " + str(Priorities))
+    #print("the priorities are " + str(Priorities))
 
     #Creating the actual character - Probably turned into a function? eventually?
 
@@ -169,25 +193,19 @@ def MakeEasyMook():
     Stats = addAttributes(Stats,maxStats,attributePoints,SpendableSpecialPoints)
     #setup and calculate skill points
     spendableSkillpoints =PointCost['skillpoints'][str(Priorities['Skills'])]
-    if(Stats['Magic'] == "-"):
-        Skills['Skills'].pop('Sorcery')
-        Skills['Skills'].pop('Conjuring')
-        Skills['Skills'].pop('Enchanting')
-    if(Stats['Resonance'] == '-'):
-        Skills['Skills'].pop('Tasking')
 
+    skills = determineSpecials(Skills,Stats,SkillsInputFile)
     skills = addSkills(spendableSkillpoints,Skills)
 
 
-    print('at the end of assigning attribute points, the stat array is:')
-    print(Stats)
-
-    print()
+    # print('at the end of assigning attribute points, the stat array is:')
+    # print(Stats)
+    # print(Skills)
 
 
 #main loop
 root = Tk()
-root.title("hello")
+root.title("MookGen")
 root.minsize(300,300)
 
 EasyMook = Button(root, text ="Easy Mook", command = MakeEasyMook)
