@@ -53,8 +53,6 @@ def  addAttributes(inputStats,maxStats,SpendablePoints,SpendableSpecialPoints):
                 #this attribute can't be bought on this chracter, remove it
                 advancedStats.remove(increaseStat)
             else:
-                print('trying to increase something: ')
-                print(inputStats[increaseStat],maxStats[increaseStat])
                 if(inputStats[increaseStat] < maxStats[increaseStat]):
                     inputStats[increaseStat] += 1
                     SpendableSpecialPoints -= 1
@@ -79,8 +77,8 @@ def determineSpecials(Mook,SkillsInputFile):
                 Skills[ChosenSkillSet][skill] = specialtyStats['SkillGroup']
         spellSelections = []
         spellOptions = Mook['specialtyStats']['Magic'] * 2
-        # spellSelections = selectSpells(spellOptions,"magician")
-        # Skills['spells'] = spellSelections
+        spellSelections = selectSpells(spellOptions,"magician")
+        Mook['Spells'] = spellSelections
 
     elif ('Technomancer' in Stats['Special']):
         print('Technomancer')
@@ -97,7 +95,12 @@ def determineSpecials(Mook,SkillsInputFile):
 
 def selectSpells(OptionsCount,type):
     #stub for later, this is definitely going to be in a file, but just a proof of concept for the other stats at the moment.
-    spells = ['Toxic wave','punch']
+    spells = []
+    spellList = ReadJson('data\\Spells.json')
+    print(spellList)
+    while OptionsCount > 0:
+        spells.append(random.choice(list(spellList[random.choice(list(spellList))])))
+        OptionsCount -= 1
     return spells
 
 def addSkills(skillPointsDict,Skills):
