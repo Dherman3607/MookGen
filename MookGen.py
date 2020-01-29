@@ -53,6 +53,8 @@ def  addAttributes(inputStats,maxStats,SpendablePoints,SpendableSpecialPoints):
                 #this attribute can't be bought on this chracter, remove it
                 advancedStats.remove(increaseStat)
             else:
+                print('trying to increase something: ')
+                print(inputStats[increaseStat],maxStats[increaseStat])
                 if(inputStats[increaseStat] < maxStats[increaseStat]):
                     inputStats[increaseStat] += 1
                     SpendableSpecialPoints -= 1
@@ -63,9 +65,10 @@ def  addAttributes(inputStats,maxStats,SpendablePoints,SpendableSpecialPoints):
     inputStats['Initiative'] = inputStats['Reaction'] + inputStats['Intuition']
     return inputStats
 
-
-
-def determineSpecials(Skills,Stats,SkillsInputFile,specialtyStats):
+def determineSpecials(Mook,SkillsInputFile):
+    specialtyStats = Mook['specialtyStats']
+    Skills = Mook['Skills']
+    Stats = Mook['Attributes']
     print(specialtyStats)
     if('Aspected' in Stats['Special']):
         #an aspected mage can only use one of the three mage skills, to be determined randomly.
@@ -75,10 +78,10 @@ def determineSpecials(Skills,Stats,SkillsInputFile,specialtyStats):
         if('SkillGroup' in specialtyStats):
             for skill in Skills[ChosenSkillSet]:
                 Skills[ChosenSkillSet][skill] = specialtyStats['SkillGroup']
-        # Skills['spells'] = []
-        # spellOptions = specialtyStats['Magic'] * 2
-        # spells = selectSpells(spellOptions,"magician")
-        # Skills['spells'] = spells
+        spellSelections = []
+        spellOptions = Mook['specialtyStats']['Magic'] * 2
+        # spellSelections = selectSpells(spellOptions,"magician")
+        # Skills['spells'] = spellSelections
 
     elif ('Technomancer' in Stats['Special']):
         print('Technomancer')
@@ -93,13 +96,10 @@ def determineSpecials(Skills,Stats,SkillsInputFile,specialtyStats):
 
     print(Skills)
     return Skills
-
-
 def selectSpells(OptionsCount,type):
     #stub for later, this is definitely going to be in a file, but just a proof of concept for the other stats at the moment.
     spells = ['Toxic wave','punch']
     return spells
-
 def addSkills(skillPointsDict,Skills):
 
     removableSkillgroups = []
@@ -130,6 +130,7 @@ def addSkills(skillPointsDict,Skills):
     while skillPointsDict['points'] > 0:
         randomGroup = random.choice(skillGroups)
         randomSkill = random.choice(list(Skills[randomGroup]))
+        print(randomSkill,Skills[randomGroup][randomSkill])
         if (Skills[randomGroup][randomSkill]< 5):
             Skills[randomGroup][randomSkill] +=1
             skillPointsDict['points'] -=1
@@ -149,6 +150,15 @@ def MakeEasyMook():
     Skills = SkillsInputFile['Skills']
     Stats = {}
     specialtyStats = {}
+    Mook = {
+    "Metatype":"",
+    "Priorities":{},
+    "specialtyStats":{},
+    "Attributes":{},
+    "Skills":{},
+    "Spells":[],
+    "Gear":[]
+    }
 
     for priority in Priorities:
         if sumToTen > 0:
@@ -164,7 +174,9 @@ def MakeEasyMook():
     #metatype = random.choice(list(possibleMeta.keys()))
 
     metatype = random.choice(list(boughtValues['metatype'][str(Priorities['metatype'])].keys()))
+    Mook['Metatype'] = metatype
     print(Priorities)
+    Mook['Priorities'].update(Priorities)
 
 
     for stat in metatypeStats[metatype]:
@@ -181,12 +193,12 @@ def MakeEasyMook():
     if(Priorities['Magic'] >0 ):
 
         specialty = random.choice(list(SpecialStaters[str(Priorities['Magic'])]))
-        specialtyStats = SpecialStaters[str(Priorities['Magic'])][specialty]
-        print(specialtyStats)
-        if('Magic' in specialtyStats):
-            Stats['Magic'] = specialtyStats['Magic']
+        Mook['specialtyStats'] = SpecialStaters[str(Priorities['Magic'])][specialty]
+        #print(specialtyStats)
+        if('Magic' in Mook['specialtyStats']):
+            Stats['Magic'] = Mook['specialtyStats']['Magic']
         else:
-            Stats['Resonance'] = specialtyStats['Resonance']
+            Stats['Resonance'] =  Mook['specialtyStats']['Resonance']
         if(Stats["Special"] =='None'):
             Stats["Special"] = specialty
         else:
@@ -195,17 +207,18 @@ def MakeEasyMook():
 
     #set up and calculate attributes
     SpendableSpecialPoints = boughtValues['metatype'][str(Priorities['metatype'])][metatype]['Specials']
-    Stats = addAttributes(Stats,maxStats,attributePoints,SpendableSpecialPoints)
+    # Stats = addAttributes(Stats,maxStats,attributePoints,SpendableSpecialPoints)
+    # Mook['Attributes'].update(Stats)
+    Mook['Attributes'].update(addAttributes(Stats,maxStats,attributePoints,SpendableSpecialPoints)) 
     #setup and calculate skill points
     spendableSkillpoints =PointCost['skillpoints'][str(Priorities['Skills'])]
 
-    skills = determineSpecials(Skills,Stats,SkillsInputFile,specialtyStats)
+    skills = determineSpecials(Mook,SkillsInputFile)
     skills = addSkills(spendableSkillpoints,Skills)
+    Mook['Skills'].update(skills)
+    print('The mook is ')
+    print(Mook)
 
-
-    # print('at the end of assigning attribute points, the stat array is:')
-    # print(Stats)
-    # print(Skills)
 
 
 #main loop
