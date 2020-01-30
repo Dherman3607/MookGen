@@ -13,13 +13,13 @@
       "Magic":3,
       "SkillCount":0,
       "SkillRating":0,
-      "spells":5
+      "Spells":5
     },
     "Mystic Adept":{
       "Magic":3,
       "SkillCount":0,
       "SkillRating":0,
-      "spells":5
+      "Spells":5
     },
     "Adept":{
       "Magic":4,
@@ -43,13 +43,13 @@
       "Magic":4,
       "SkillCount":2,
       "SkillRating":4,
-      "spells":7
+      "Spells":7
     },
     "Mystic Adept":{
       "Magic":4,
       "SkillCount":2,
       "SkillRating":4,
-      "spells":7
+      "Spells":7
     },
     "Adept":{
       "Magic":6,

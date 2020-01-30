@@ -80,7 +80,7 @@ def determineSpecials(Mook,SkillsInputFile):
         spellSelections = selectSpells(spellOptions,"magician")
         Mook['Spells'] = spellSelections
 
-    elif ('Technomancer' in Stats['Special']):
+    elif('Technomancer' in Stats['Special']):
         print('Technomancer')
 
     elif('Mystic Adept') in Stats['Special']:
@@ -88,6 +88,23 @@ def determineSpecials(Mook,SkillsInputFile):
 
     elif('Magician' in Stats['Special']):
         print('Magician')
+        SkillCount = Mook['specialtyStats']['SkillCount']
+        for skillGroup in SkillsInputFile['Specials']['Magic']:
+            print(skillGroup)
+            Skills[skillGroup] = {}
+            Skills[skillGroup].update(SkillsInputFile['Specials']['Magic'][skillGroup])
+        while SkillCount > 0:
+            randomGroup = random.choice(list(SkillsInputFile['Specials']['Magic']))
+            randomSkill = random.choice(list(SkillsInputFile['Specials']['Magic'][randomGroup]))
+            Mook['Skills'][randomGroup][randomSkill] = specialtyStats['SkillRating']
+            print(randomSkill)
+            SkillCount -=1
+        spellOptions = Mook['specialtyStats']['Spells']
+        if spellOptions != 0:
+            spellSelections = selectSpells(spellOptions,"magician")
+            Mook['Spells'] = spellSelections
+
+
     elif('Adept' in Stats['Special']):
         print('Adept')
 
@@ -97,7 +114,6 @@ def selectSpells(OptionsCount,type):
     #stub for later, this is definitely going to be in a file, but just a proof of concept for the other stats at the moment.
     spells = []
     spellList = ReadJson('data\\Spells.json')
-    print(spellList)
     while OptionsCount > 0:
         spells.append(random.choice(list(spellList[random.choice(list(spellList))])))
         OptionsCount -= 1
