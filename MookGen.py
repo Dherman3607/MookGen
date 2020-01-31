@@ -107,6 +107,8 @@ def determineSpecials(Mook,SkillsInputFile):
 
     elif('Adept' in Stats['Special']):
         print('Adept')
+        adeptPowers = ReadJson('data\\AdeptPowers.json')
+        print(adeptPowers)
 
     return Skills
 
@@ -173,6 +175,7 @@ def MakeEasyMook():
     "Priorities":{},
     "specialtyStats":{},
     "Attributes":{},
+    "Adept":{},
     "Skills":{},
     "Spells":[],
     "Gear":[]
