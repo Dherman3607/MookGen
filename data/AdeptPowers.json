@@ -6,467 +6,467 @@
   },
   "Adept Spell":{
   "Prereq":"none",
-  "cost":	1,
+  "Cost":	1,
    "Max":	1
  },
  "Adrenaline Boost":{
  "Prereq":"none",
- "cost":	0.25,
+ "Cost":	0.25,
   "Max":	99
 },
 "Analytics":{
 "Prereq":"none",
-"cost":	0.5,
+"Cost":	0.5,
  "Max":	99
 },
 "Animal Empathy":{
 "Prereq":"none",
-"cost":	0.25,
+"Cost":	0.25,
  "Max":	99
 },
 "Astral Perception":{
 "Prereq":"none",
-"cost":	1,
+"Cost":	1,
  "Max":	1
 },
 "Attribute Boost (attribute)":{
 "Prereq":"none",
-"cost":	0.25,
+"Cost":	0.25,
  "Max":	99
 },
 "Authoritative Tone":{
 "Prereq":"none",
-"cost":	0.5,
+"Cost":	0.5,
  "Max":	3
 },
 "Berserker's Rage":{
 "Prereq":"Berserk",
-"cost":	1,
+"Cost":	1,
  "Max":	1
 },
 "Berserk":{
 "Prereq":"none",
-"cost":	1,
+"Cost":	1,
  "Max":	1
 },
 "Cloak":{
 "Prereq":"none",
-"cost":	0.25,
+"Cost":	0.25,
  "Max":	99
 },
 "Combat Sense":{
 "Prereq":"none",
-"cost":	0.5,
+"Cost":	0.5,
  "Max":	99
 },
 "Commanding Voice(SR5: SG)":{
 "Prereq":"none",
-"cost":	0.25,
+"Cost":	0.25,
  "Max":	3
 },
 "Commanding Voice (SR5:SSo)":{
 "Prereq":"none",
-"cost":	0.1,
+"Cost":	1,
  "Max":	1
 },
 "Cool Resolve":{
 "Prereq":"none",
-"cost":	1,
+"Cost":	1,
  "Max":	1
 },
 "Counterstrike":{
 "Prereq":"none",
-"cost":	1,
+"Cost":	1,
  "Max":	99
 },
 "Critical Strike (Skill)":{
 "Prereq":"none",
-"cost":	1,
+"Cost":	1,
  "Max":	1
 },
 "Danger Sense":{
 "Prereq":"none",
-"cost":	0.25,
+"Cost":	0.25,
  "Max":	99
 },
 "Demara":{
 "Prereq":"none",
-"cost":	0.5,
+"Cost":	0.5,
  "Max":	1
 },
 "Eidetic Sense Memory":{
 "Prereq":"none",
-"cost":	0.5,
+"Cost":	0.5,
  "Max":	1
 },
 "Elemental Body":{
 "Prereq":"Elemental Strike",
-"cost":	1,
+"Cost":	1,
  "Max":	1
 },
 "Elemental Strike":{
 "Prereq":"Killing Hands",
-"cost":	0.5,
+"Cost":	0.5,
  "Max":	1
 },
 "Elemental Weapon":{
 "Prereq":"Weapon Foci",
-"cost":	0.5,
+"Cost":	0.5,
  "Max":	1
 },
 "Empathic Healing":{
 "Prereq":"none",
-"cost":	0.5,
+"Cost":	0.5,
  "Max":	1
 },
 "Enhanced Accuracy (Skill)":{
 "Prereq":"none",
-"cost":	0.25,
+"Cost":	0.25,
  "Max":	1
 },
 "Enhanced Perception":{
 "Prereq":"none",
-"cost":	0.5,
+"Cost":	0.5,
  "Max":	99
 },
 "Enthralling Performance":{
 "Prereq":"none",
-"cost":	0.5,
+"Cost":	0.5,
  "Max":	1
 },
 "Facial Sculpt":{
 "Prereq":"none",
-"cost":	0.25,
+"Cost":	0.25,
  "Max":	99
 },
 "Feign Death":{
 "Prereq":"none",
-"cost":	1,
+"Cost":	1,
  "Max":	1
 },
 "Feign Illness":{
 "Prereq":"none",
-"cost":	0.5,
+"Cost":	0.5,
  "Max":	1
 },
 "Flexibility":{
 "Prereq":"none",
-"cost":	0.25,
+"Cost":	0.25,
  "Max":	3
 },
 "Focused Archery":{
 "Prereq":"none",
-"cost":	0.25,
+"Cost":	0.25,
  "Max":	3
 },
 "Freefall":{
 "Prereq":"none",
-"cost":	0.25,
+"Cost":	0.25,
  "Max":	99
 },
 "Heightened Concern":{
 "Prereq":"none",
-"cost":	0.5,
+"Cost":	0.5,
  "Max":	1
 },
 "Improved Ability (Skill)":{
 "Prereq":"none",
-"cost":	0.5,
+"Cost":	0.5,
  "Max":	99
 },
 "Improved Physical Attribute":{
 "Prereq":"none",
-"cost":	1,
+"Cost":	1,
  "Max":	99
 },
 "Improved Potenial (limit)":{
 "Prereq":"none",
-"cost":	0.5,
+"Cost":	0.5,
  "Max":	99
 },
 "Improved Reflexes 1":{
 "Prereq":"none",
-"cost":	1.5,
+"Cost":	1.5,
  "Max":	1
 },
 "Improved Reflexes 2":{
 "Prereq":"Improved Reflexes 1",
-"cost":	2.5,
+"Cost":	2.5,
  "Max":	1
 },
 "Improved Reflexes 3":{
 "Prereq":"Improved Reflexes 2",
-"cost":	3.5,
+"Cost":	3.5,
  "Max":	1
 },
 "Improved Sense":{
 "Prereq":"none",
-"cost":	0.25,
+"Cost":	0.25,
  "Max":	99
 },
 "Indominatable Will":{
 "Prereq":"none",
-"cost":	0.25,
+"Cost":	0.25,
  "Max":	99
 },
 "Inertia Strike":{
 "Prereq":"none",
-"cost":	0.5,
+"Cost":	0.5,
  "Max":	1
 },
 "Iron Gut":{
 "Prereq":"none",
-"cost":	0.25,
+"Cost":	0.25,
  "Max":	99
 },
 "Iron Lungs":{
 "Prereq":"none",
-"cost":	0.25,
+"Cost":	0.25,
  "Max":	99
 },
 "Iron Will":{
 "Prereq":"none",
-"cost":	0.5,
+"Cost":	0.5,
  "Max":	99
 },
 "Keratin Control":{
 "Prereq":"none",
-"cost":	0.5,
+"Cost":	0.5,
  "Max":	1
 },
 "Kiai":{
 "Prereq":"none",
-"cost":	0.25,
+"Cost":	0.25,
  "Max":	6
 },
 "Killing Hands":{
 "Prereq":"none",
-"cost":	0.5,
+"Cost":	0.5,
  "Max":	1
 },
 "Kinesics":{
 "Prereq":"none",
-"cost":	0.25,
+"Cost":	0.25,
  "Max":	99
 },
 "Kinesics Mastery":{
 "Prereq":"none",
-"cost":	0.5,
+"Cost":	0.5,
  "Max":	1
 },
 "Light Body":{
 "Prereq":"none",
-"cost":	0.25,
+"Cost":	0.25,
  "Max":	99
 },
 "Light Touch":{
 "Prereq":"none",
-"cost":	0.25,
+"Cost":	0.25,
  "Max":	99
 },
 "Linguistics":{
 "Prereq":"none",
-"cost":	0.25,
+"Cost":	0.25,
  "Max":	1
 },
 "Living Focus":{
 "Prereq":"none",
-"cost":	1,
+"Cost":	1,
  "Max":	1
 },
 "Magic Sense":{
 "Prereq":"none",
-"cost":	0.5,
+"Cost":	0.5,
  "Max":	1
 },
 "Maintain Warmth":{
 "Prereq":"none",
-"cost":	0.25,
+"Cost":	0.25,
  "Max":	1
 },
 "Master Archer":{
 "Prereq":"none",
-"cost":	1,
+"Cost":	1,
  "Max":	1
 },
 "Melanin Control":{
 "Prereq":"none",
-"cost":	0.5,
+"Cost":	0.5,
  "Max":	1
 },
 "Memory Displacement":{
 "Prereq":"none",
-"cost":	0.25,
+"Cost":	0.25,
  "Max":	1
 },
 "Metabolic Control":{
 "Prereq":"none",
-"cost":	0.5,
+"Cost":	0.5,
  "Max":	1
 },
 "Mimic":{
 "Prereq":"none",
-"cost":	0.25,
+"Cost":	0.25,
  "Max":	6
 },
 "Missile Mastery":{
 "Prereq":"none",
-"cost":	1,
+"Cost":	1,
  "Max":	1
 },
 "Missile Parry":{
 "Prereq":"none",
-"cost":	0.25,
+"Cost":	0.25,
  "Max":	99
 },
 "Motion Sense":{
 "Prereq":"none",
-"cost":	0.25,
+"Cost":	0.25,
  "Max":	1
 },
 "Mystic Armor":{
 "Prereq":"none",
-"cost":	0.5,
+"Cost":	0.5,
  "Max":	99
 },
 "Natural Immunity":{
 "Prereq":"none",
-"cost":	0.25,
+"Cost":	0.25,
  "Max":	99
 },
 "Nerve Strike":{
 "Prereq":"none",
-"cost":	1,
+"Cost":	1,
  "Max":	1
 },
 "Nimble Fingers":{
 "Prereq":"none",
-"cost":	0.25,
+"Cost":	0.25,
  "Max":	1
 },
 "Pain Relief":{
 "Prereq":"none",
-"cost":	1,
+"Cost":	1,
  "Max":	1
 },
 "Pain Resistance":{
 "Prereq":"none",
-"cost":	0.5,
+"Cost":	0.5,
  "Max":	99
 },
 "Penetrating Strike":{
 "Prereq":"none",
-"cost":	0.25,
+"Cost":	0.25,
  "Max":	4
 },
 "Piercing Senses":{
 "Prereq":"none",
-"cost":	0.25,
+"Cost":	0.25,
  "Max":	99
 },
 "Plague Cloud":{
 "Prereq":"none",
-"cost":	0.5,
+"Cost":	0.5,
  "Max":	1
 },
 "Power Swimming":{
 "Prereq":"none",
-"cost":	1,
+"Cost":	1,
  "Max":	1
 },
 "Precision Throwing":{
 "Prereq":"none",
-"cost":	0.25,
+"Cost":	0.25,
  "Max":	3
 },
 "Rapid Draw":{
 "Prereq":"none",
-"cost":	0.5,
+"Cost":	0.5,
  "Max":	1
 },
 "Rapid Healing":{
 "Prereq":"none",
-"cost":	0.5,
+"Cost":	0.5,
  "Max":	99
 },
 "Riposte":{
 "Prereq":"none",
-"cost":	0.25,
+"Cost":	0.25,
  "Max":	99
 },
 "Rooting":{
 "Prereq":"none",
-"cost":	0.25,
+"Cost":	0.25,
  "Max":	99
 },
 "Skate":{
 "Prereq":"none",
-"cost":	1,
+"Cost":	1,
  "Max":	1
 },
 "Smashing Blow":{
 "Prereq":"none",
-"cost":	1,
+"Cost":	1,
  "Max":	1
 },
 "Spell Resistance":{
 "Prereq":"none",
-"cost":	0.5,
+"Cost":	0.5,
  "Max":	99
 },
 "Spirit Claw":{
 "Prereq":"none",
-"cost":	0.25,
+"Cost":	0.25,
  "Max":	1
 },
 "Spirit Ram":{
 "Prereq":"none",
-"cost":	0.5,
+"Cost":	0.5,
  "Max":	1
 },
 "Stillness":{
 "Prereq":"none",
-"cost":	0.25,
+"Cost":	0.25,
  "Max":	3
 },
 "Sustenance":{
 "Prereq":"none",
-"cost":	0.25,
+"Cost":	0.25,
  "Max":	1
 },
 "Temperature Tolerance":{
 "Prereq":"none",
-"cost":	0.25,
+"Cost":	0.25,
  "Max":	99
 },
 "Three-Dimensional Memory":{
 "Prereq":"none",
-"cost":	0.5,
+"Cost":	0.5,
  "Max":	1
 },
 "Toxic Strike":{
 "Prereq":"Killing Hands",
-"cost":	0.5,
+"Cost":	0.5,
  "Max":	1
 },
 "Traceless Walk":{
 "Prereq":"none",
-"cost":	1,
+"Cost":	1,
  "Max":	1
 },
 "Transmit Damage":{
 "Prereq":"none",
-"cost":	1,
+"Cost":	1,
  "Max":	99
 },
 "Voice Control":{
 "Prereq":"none",
-"cost":	0.5,
+"Cost":	0.5,
  "Max":	99
 },
 "Wall Running":{
 "Prereq":"none",
-"cost":	0.5,
+"Cost":	0.5,
  "Max":	1
 }
 }

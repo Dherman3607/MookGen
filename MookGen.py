@@ -107,11 +107,23 @@ def Determine_Specials(Mook,SkillsInputFile):
 
     elif('Adept' in stats['Special']):
         print('Adept')
-        adeptPowers = Read_Json('data\\AdeptPowers.json')
-        print(adeptPowers)
         powerPoints = Mook['Attributes']['Magic']*2
-
+        Select_Adept_Powers(powerPoints)
     return Skills
+
+def Select_Adept_Powers(powerPoints):
+    adeptPowers = Read_Json('data\\AdeptPowers.json')
+    print(powerPoints)
+    while powerPoints >0:
+        randomPower = random.choice(list(adeptPowers))
+        if(adeptPowers[randomPower]['Cost'] < powerPoints):
+            print(randomPower,adeptPowers[randomPower]['Cost'])
+            powerPoints -= adeptPowers[randomPower]['Cost']
+        else:
+            #print("cant afford this power")
+            pass
+
+
 
 def Select_Spells(OptionsCount,type):
     #stub for later, this is definitely going to be in a file, but just a proof of concept for the other stats at the moment.
@@ -161,11 +173,11 @@ def Add_Skills(skillPointsDict,Skills):
 
 def Make_Easy_Mook():
     sumToTen = 10
-    Priorities = Read_Json('data\\Priorities.json')
+    priorities = Read_Json('data\\priorities.json')
     metatypeStats = Read_Json('data\\metatypes.json')
     boughtValues = Read_Json('data\\boughtValues.json')
     #SkillPointAllocations = Read_Json('data\\SkillPoints.json')
-    SpecialStaters = Read_Json('data\\SpecialStats.json')
+    SpecialStates = Read_Json('data\\SpecialStats.json')
     PointCost = Read_Json('data\\pointCosts.json')
     SkillsInputFile = Read_Json('data\\skills.json')
     Skills = SkillsInputFile['Skills']
@@ -173,7 +185,7 @@ def Make_Easy_Mook():
     specialtyStats = {}
     Mook = {
     "Metatype":"",
-    "Priorities":{},
+    "priorities":{},
     "specialtyStats":{},
     "Attributes":{},
     "Adept":{},
@@ -182,22 +194,22 @@ def Make_Easy_Mook():
     "Gear":[]
     }
 
-    for priority in Priorities:
+    for priority in priorities:
         if sumToTen > 0:
             value =  (random.randrange(0,4))
             sumToTen -= value
-            Priorities[priority] = value
+            priorities[priority] = value
 
     #Creating the actual character - Probably turned into a function? eventually?
 
     #the poor man's way to do this. Leaving these 2 lines as an example of setting it up
     #and then doing it better, below
-    #possibleMeta = boughtValues['metatype'][str(Priorities['metatype'])]
+    #possibleMeta = boughtValues['metatype'][str(priorities['metatype'])]
     #metatype = random.choice(list(possibleMeta.keys()))
 
-    metatype = random.choice(list(boughtValues['metatype'][str(Priorities['metatype'])].keys()))
+    metatype = random.choice(list(boughtValues['metatype'][str(priorities['metatype'])].keys()))
     Mook['Metatype'] = metatype
-    Mook['Priorities'].update(Priorities)
+    Mook['priorities'].update(priorities)
 
 
     for stat in metatypeStats[metatype]:
@@ -209,12 +221,12 @@ def Make_Easy_Mook():
             maxStats[stat] = metatypeStats[metatype][stat]['max']
 
 
-    attributePoints = PointCost['attributes'][str(Priorities['attributes'])]
+    attributePoints = PointCost['attributes'][str(priorities['attributes'])]
     #is this guy magical, or a technomancer?
-    if(Priorities['Magic'] >0 ):
+    if(priorities['Magic'] >0 ):
 
-        specialty = random.choice(list(SpecialStaters[str(Priorities['Magic'])]))
-        Mook['specialtyStats'] = SpecialStaters[str(Priorities['Magic'])][specialty]
+        specialty = random.choice(list(SpecialStates[str(priorities['Magic'])]))
+        Mook['specialtyStats'] = SpecialStates[str(priorities['Magic'])][specialty]
         if('Magic' in Mook['specialtyStats']):
             stats['Magic'] = Mook['specialtyStats']['Magic']
         else:
@@ -226,13 +238,13 @@ def Make_Easy_Mook():
 
 
     #set up and calculate attributes
-    SpendableSpecialPoints = boughtValues['metatype'][str(Priorities['metatype'])][metatype]['Specials']
+    SpendableSpecialPoints = boughtValues['metatype'][str(priorities['metatype'])][metatype]['Specials']
     stats = Add_Attributes(stats,maxStats,attributePoints,SpendableSpecialPoints)
     Mook['Attributes'].update(stats)
 
 
     #setup and calculate skill points
-    spendableSkillpoints =PointCost['skillpoints'][str(Priorities['Skills'])]
+    spendableSkillpoints =PointCost['skillpoints'][str(priorities['Skills'])]
     skills = Determine_Specials(Mook,SkillsInputFile)
     skills = Add_Skills(spendableSkillpoints,Skills)
     Mook['Skills'].update(skills)
