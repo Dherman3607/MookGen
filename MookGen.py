@@ -31,7 +31,9 @@ def Read_Json(Inputfile):
     with open(Inputfile,'r') as f:
         return json.load(f)
 
-def  Add_Attributes(inputStats,maxStats,SpendablePoints,SpendableSpecialPoints):
+def Add_Attributes(inputStats,maxStats,SpendablePoints,spendableSpecialPoints):
+    #Normal states are those that 1) every character has, and 2) are increased with regular attribute points (SpendablePoints)
+    #advanced stats are either not available to all characters (magic/resonance) or use other points to upgrade them (all of them) (spendableSpecialPoints)
     NormalStats = ['Body','Agility','Reaction','Strength','Willpower','Logic','Charisma','Intuition']
     advancedStats = ['Magic','Resonance','Edge']
     for stat in advancedStats:
@@ -46,7 +48,7 @@ def  Add_Attributes(inputStats,maxStats,SpendablePoints,SpendableSpecialPoints):
         else:
             NormalStats.remove(increaseStat)
 
-    while SpendableSpecialPoints > 0:
+    while spendableSpecialPoints > 0:
         if(advancedStats):
             increaseStat = random.choice(advancedStats)
             if(inputStats[increaseStat] == "-"):
@@ -55,7 +57,7 @@ def  Add_Attributes(inputStats,maxStats,SpendablePoints,SpendableSpecialPoints):
             else:
                 if(inputStats[increaseStat] < maxStats[increaseStat]):
                     inputStats[increaseStat] += 1
-                    SpendableSpecialPoints -= 1
+                    spendableSpecialPoints -= 1
                 else:
                     advancedStats.remove(increaseStat)
         else:
@@ -113,16 +115,38 @@ def Determine_Specials(Mook,SkillsInputFile):
 
 def Select_Adept_Powers(powerPoints):
     adeptPowers = Read_Json('data\\AdeptPowers.json')
-    print(powerPoints)
-    while powerPoints >0:
-        randomPower = random.choice(list(adeptPowers))
-        if(adeptPowers[randomPower]['Cost'] < powerPoints):
-            print(randomPower,adeptPowers[randomPower]['Cost'])
-            powerPoints -= adeptPowers[randomPower]['Cost']
-        else:
-            #print("cant afford this power")
-            pass
+    selectedPowersList = []
+    adeptList = []
+    selectedPowers = {}
 
+    for key in adeptPowers:
+        adeptList.append(key)
+
+    while adeptList:
+        if powerPoints >0:
+            randomPower = random.choice(list(adeptList))
+
+
+            if(adeptPowers[randomPower]['Cost'] < powerPoints):
+                if randomPower not in selectedPowers:
+                    selectedPowers[randomPower] = adeptPowers[randomPower]
+                    selectedPowers[randomPower]['Current Rank'] = 1
+                    powerPoints -= adeptPowers[randomPower]['Cost']
+                    adeptList.extend([randomPower]*10)
+                elif selectedPowers[randomPower]['Current Rank'] < selectedPowers[randomPower]['Max']:
+                        selectedPowers[randomPower]['Current Rank'] +=1
+                        powerPoints -= adeptPowers[randomPower]['Cost']
+                else:
+                    adeptList.remove(randomPower)
+
+            else:
+                #print('removing ' + randomPower)
+                adeptList.remove(randomPower)
+
+    print(selectedPowersList)
+
+
+    print(selectedPowers)
 
 
 def Select_Spells(OptionsCount,type):
@@ -238,8 +262,8 @@ def Make_Easy_Mook():
 
 
     #set up and calculate attributes
-    SpendableSpecialPoints = boughtValues['metatype'][str(priorities['metatype'])][metatype]['Specials']
-    stats = Add_Attributes(stats,maxStats,attributePoints,SpendableSpecialPoints)
+    spendableSpecialPoints = boughtValues['metatype'][str(priorities['metatype'])][metatype]['Specials']
+    stats = Add_Attributes(stats,maxStats,attributePoints,spendableSpecialPoints)
     Mook['Attributes'].update(stats)
 
 
