@@ -32,9 +32,12 @@ def Read_Json(Inputfile):
         return json.load(f)
 
 def Add_Attributes(inputStats,maxStats,SpendablePoints,spendableSpecialPoints):
-    #Normal states are those that 1) every character has, and 2) are increased with regular attribute points (SpendablePoints)
-    #advanced stats are either not available to all characters (magic/resonance) or use other points to upgrade them (all of them) (spendableSpecialPoints)
-    NormalStats = ['Body','Agility','Reaction','Strength','Willpower','Logic','Charisma','Intuition']
+    # Normal states are those that 1) every character has, and 2) are increased
+    # with regular attribute points (SpendablePoints)
+    #advanced stats are either not available to all characters (magic/resonance)
+    # or use other points to upgrade them (all of them) (spendableSpecialPoints)
+    NormalStats = ['Body','Agility','Reaction','Strength','Willpower','Logic',
+                    'Charisma','Intuition']
     advancedStats = ['Magic','Resonance','Edge']
     for stat in advancedStats:
         if(inputStats[stat] == "-"):
@@ -70,7 +73,8 @@ def Determine_Specials(Mook,SkillsInputFile):
     Skills = Mook['Skills']
     stats = Mook['Attributes']
     if('Aspected' in stats['Special']):
-        #an aspected mage can only use one of the three mage skills, to be determined randomly.
+        # an aspected mage can only use one of the three mage skills,
+        # to be determined randomly.
         ChosenSkillSet = random.choice(list(SkillsInputFile['Specials']['Magic']))
         Skills[ChosenSkillSet] = {}
         Skills[ChosenSkillSet].update(SkillsInputFile['Specials']['Magic'][ChosenSkillSet])
@@ -109,48 +113,67 @@ def Determine_Specials(Mook,SkillsInputFile):
 
     elif('Adept' in stats['Special']):
         print('Adept')
-        powerPoints = Mook['Attributes']['Magic']*2
-        Select_Adept_Powers(powerPoints)
+        power_points = Mook['Attributes']['Magic']*2
+        Mook['Adept Powers'] = select_adept_powers(power_points)
     return Skills
 
-def Select_Adept_Powers(powerPoints):
-    adeptPowers = Read_Json('data\\AdeptPowers.json')
+def check_pre_req(adept_powers,random_power):
+    # this random_power should be the pre-req to the previous one. If it doesn't have a pre-req,
+    # we can return that as the the new skill to add
+    #print(adept_powers)
+    if('none' in adept_powers[random_power]['Prereq']):
+        return adept_powers[random_power]['Prereq']
+    else:
+        random_power = adept_powers[random_power]['Prereq']
+        check_pre_req(adept_powers,random_power)
+    pass
+
+def add_power(adept_powers,random_power,power_points,selected_powers,adept_list):
+    if(adept_powers[random_power]['Cost'] < power_points):
+        if random_power not in selected_powers:
+            selected_powers[random_power] = adept_powers[random_power]
+            selected_powers[random_power]['Current Rank'] = 1
+            power_points -= adept_powers[random_power]['Cost']
+            adept_list.extend([random_power]*10)
+        elif selected_powers[random_power]['Current Rank'] < (selected_powers
+            [random_power]['Max']):
+                selected_powers[random_power]['Current Rank'] +=1
+                power_points -= adept_powers[random_power]['Cost']
+        else:
+            adept_list.remove(random_power)
+
+    else:
+        #print('removing ' + random_power)
+        adept_list.remove(random_power)
+    return adept_list,selected_powers
+
+def select_adept_powers(power_points):
+    adept_powers = Read_Json('data\\AdeptPowers.json')
     selectedPowersList = []
-    adeptList = []
-    selectedPowers = {}
+    adept_list = []
+    selected_powers = {}
 
-    for key in adeptPowers:
-        adeptList.append(key)
+    for key in adept_powers:
+        adept_list.append(key)
 
-    while adeptList:
-        if powerPoints >0:
-            randomPower = random.choice(list(adeptList))
-
-
-            if(adeptPowers[randomPower]['Cost'] < powerPoints):
-                if randomPower not in selectedPowers:
-                    selectedPowers[randomPower] = adeptPowers[randomPower]
-                    selectedPowers[randomPower]['Current Rank'] = 1
-                    powerPoints -= adeptPowers[randomPower]['Cost']
-                    adeptList.extend([randomPower]*10)
-                elif selectedPowers[randomPower]['Current Rank'] < selectedPowers[randomPower]['Max']:
-                        selectedPowers[randomPower]['Current Rank'] +=1
-                        powerPoints -= adeptPowers[randomPower]['Cost']
-                else:
-                    adeptList.remove(randomPower)
-
+    while adept_list:
+        if power_points >0:
+            random_power = random.choice(list(adept_list))
+            #print(adept_powers[random_power]['Prereq'])
+            if('none' in adept_powers[random_power]['Prereq']):
+                added_power = add_power(adept_powers,random_power,power_points,
+                                        selected_powers,adept_list)
+                adept_list = added_power[0]
+                selected_powers = added_power[1]
             else:
-                #print('removing ' + randomPower)
-                adeptList.remove(randomPower)
-
-    print(selectedPowersList)
-
-
-    print(selectedPowers)
-
+                random_power = adept_powers[random_power]['Prereq']
+                random_power = check_pre_req(adept_powers,random_power)
+                break
+    return selected_powers
 
 def Select_Spells(OptionsCount,type):
-    #stub for later, this is definitely going to be in a file, but just a proof of concept for the other stats at the moment.
+    #stub for later, this is definitely going to be in a file, but just a proof
+    # of concept for the other stats at the moment.
     spells = []
     spellList = Read_Json('data\\Spells.json')
     while OptionsCount > 0:
@@ -161,11 +184,12 @@ def Select_Spells(OptionsCount,type):
 def Add_Skills(skillPointsDict,Skills):
 
     removableSkillgroups = []
-    #set up the list of skills that can be increased. When we process skill groups, we'll remove individual skills from this list.
+    # set up the list of skills that can be increased. When we process skill
+    # groups, we'll remove individual skills from this list.
     SkillList = []
     skillGroups = []
-    #aspected magicans, adepts, and technomancers all have different rules for Skills
-    #before assigning groups and skill points, those need to be configured.
+    #aspected magicans, adepts, and technomancers all have different rules for
+    # Skills before assigning groups and skill points, those need to be configured.
     for skillGroup in Skills:
         skillGroups.append(skillGroup)
         for skill in Skills[skillGroup]:
@@ -215,6 +239,7 @@ def Make_Easy_Mook():
     "Adept":{},
     "Skills":{},
     "Spells":[],
+    "Adept Powers":{},
     "Gear":[]
     }
 
@@ -231,7 +256,8 @@ def Make_Easy_Mook():
     #possibleMeta = boughtValues['metatype'][str(priorities['metatype'])]
     #metatype = random.choice(list(possibleMeta.keys()))
 
-    metatype = random.choice(list(boughtValues['metatype'][str(priorities['metatype'])].keys()))
+    metatype = random.choice(list(boughtValues['metatype'][str(priorities
+                ['metatype'])].keys()))
     Mook['Metatype'] = metatype
     Mook['priorities'].update(priorities)
 
