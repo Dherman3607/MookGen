@@ -55,8 +55,6 @@ class Character:
                 pass
         return Skills
 
-
-
     priorities = Utility.Read_Json('data\\priorities.json')
     metatypeStats = Utility.Read_Json('data\\metatypes.json')
     boughtValues = Utility.Read_Json('data\\boughtValues.json')
@@ -66,10 +64,9 @@ class Character:
     SkillsInputFile = Utility.Read_Json('data\\skills.json')
     Skills = SkillsInputFile['Skills']
 
-    print(priorities)
     def __init__(self, priorities=priorities,
     boughtValues = boughtValues,metatypeStats = metatypeStats,
-    PointCost = PointCost,SpecialStates = SpecialStates):
+    PointCost = PointCost, SpecialStates = SpecialStates):
         #not all mooks will have adept, spells, or adept powers but for now they
         #can be left here as the first pass in conversion.
 
@@ -111,26 +108,39 @@ class Character:
 
         attributePoints = PointCost['attributes'][str(priorities['attributes'])]
 
-#    def add_base_attributes(inputStats,maxStats,SpendablePoints,spendableSpecialPoints):
+#    def add_base_attributes(inputStats,maxStats,spendable_points,spendableSpecialPoints):
     def add_base_attributes(self):
         # Normal states are those that 1) every character has, and 2) are increased
-        # with regular attribute points (SpendablePoints)
+        # with regular attribute points (spendable_points)
         #advanced stats are either not available to all characters (magic/resonance)
         # or use other points to upgrade them (all of them) (spendableSpecialPoints)
         NormalStats = ['Body','Agility','Reaction','Strength','Willpower','Logic',
                         'Charisma','Intuition']
         advancedStats = ['Magic','Resonance','Edge']
-        for stat in advancedStats:
-            if(inputStats[stat] == "-"):
-                advancedStats.remove(stat)
+        inputStats = {}
+        # for stat in advancedStats:
+        #     if(inputStats[stat] == "-"):
+        #         advancedStats.remove(stat)
+        for stat in self.stats:
+            inputStats[stat] = stat
+            inputStats[stat] = self.stats[stat]['starting']
 
-        while SpendablePoints > 0:
-            increaseStat = random.choice(NormalStats)
-            if(inputStats[increaseStat]< maxStats[increaseStat]):
-                inputStats[increaseStat]+=1
-                SpendablePoints -= 1
-            else:
-                NormalStats.remove(increaseStat)
+    # #setup and calculate skill points
+    # spendableSkillpoints =PointCost['skillpoints'][str(priorities['Skills'])]
+    # skills = determine_specials(Mook,SkillsInputFile)
+    # skills = Add_Skills(spendableSkillpoints,Skills)
+    # Mook['Skills'].update(skills)
+
+        print("point cost " + str(self.PointCost))
+        print(self.priorities)
+        spendable_points = self.PointCost['skillpoints'][str(self.priorities['Skills'])]
+        # while spendable_points > 0:
+        #     increaseStat = random.choice(NormalStats)
+        #     if(inputStats[increaseStat]< maxStats[increaseStat]):
+        #         inputStats[increaseStat]+=1
+        #         spendable_points -= 1
+        #     else:
+        #         NormalStats.remove(increaseStat)
 
 
         inputStats['Initiative'] = inputStats['Reaction'] + inputStats['Intuition']
@@ -151,9 +161,12 @@ class Character:
             else:
                 break
 class Adept(Character):
-    def __init__(self):
+    '''Define the archetype of an dept, a character that has power points
+    and special abilities.'''
+    def __init__(self,priorities):
         super().__init__()
-        print("leavIn adept")
+        super().add_base_attributes()
+        #self.'adept powers' = select_adept_powers()
         #print(Character.__dict__)
         return
     #print(Character.stats.__dict__)
@@ -289,20 +302,20 @@ def Make_Easy_Mook():
     if(priorities['Magic'] >0 ):
 
         specialty = random.choice(list(SpecialStates[str(priorities['Magic'])]))
-        print(specialty)
         if(specialty == 'Technomancer'):
-            mook = technomancer()
+            mook = Technomancer()
         elif(specialty == "Aspected Magician"):
             mook = Aspected_Mage()
         elif(specialty == "Adept"):
-            mook = Adept()
+            mook = Adept(priorities)
             print(mook.__dict__)
+            print('adept')
         elif(specialty == "Magician"):
             mook = Magician()
     else:
         mook = Character()
+        print('regular person')
         print(mook.__dict__)
-
         # Mook['specialtyStats'] = SpecialStates[str(priorities['Magic'])][specialty]
         # if('Magic' in Mook['specialtyStats']):
         #     stats['Magic'] = Mook['specialtyStats']['Magic']
@@ -320,11 +333,7 @@ def Make_Easy_Mook():
     # Mook['Attributes'].update(stats)
     #
     #
-    # #setup and calculate skill points
-    # spendableSkillpoints =PointCost['skillpoints'][str(priorities['Skills'])]
-    # skills = determine_specials(Mook,SkillsInputFile)
-    # skills = Add_Skills(spendableSkillpoints,Skills)
-    # Mook['Skills'].update(skills)
+
 
 
     #mook = Character()
